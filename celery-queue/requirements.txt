@@ -1,0 +1,10 @@
+Pillow
+Flask
+celery
+opencv-python
+numpy
+redis
+pytesseract
+scipy
+flower
+watchdog

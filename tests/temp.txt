@@ -1,0 +1,79 @@
+// without preprocessing
+Just wanted +o send you a quick vivte +o say hi ane
+let you lnw vere thinking oe you right nw 4x4
+Wee both vorling from hame and the kids’ school has
+chseA sv they Te atlume to. H\'s pretty packed lt
+we te managng fue.
+
+// grey scale
+\n \n\nJust wanted +o send you & quick vivte +o say hi ane
+\nlet you lnow vere thinking oe you right nw 4x4\nWee both 
+vorling from hame and the kids’ school has\ncseA so they Te
+ atlume to. Hs pretty packed lout\nwe te managng fue.\n\nPlease
+  do lefus knw if you need us to gicle up any of\noe Medication 
+  or need helo uth online grecery shopping,\n\neee mea tA A aad 
+  Land ie. ras\n\x0c'}
+
+// grey + noise remove
+{'text': "acu”\n\nPes ow\nws § » gs\n\\ar> oe wn\n\ncork
+ Ace\n\nDear Gran,\n\n    \n   \n\n\\\nWest wanted to send yu 
+ a aunkh fete te cau hi an\n\n    \n\nler yo knw ve re thoankang 
+ ow MO ake hw\n\nWee wot\n\n \n\n+ verking Erantitareianaleiee 
+ tid s' scheel has\n\ndesea so they've athme tro it's crettu mded
+  at\nJ J\n\nve te managng fre.\n\nPlease do let us knw € yu 
+  reed us te pick 4p any o&\n\nang)\n\n  \n\nyour medicaten of 
+  need helo wth onune grvcery st\n\n; ar) Cah :\nLP. A lave. 
+  A Keiniint AnU tet2W tvP Car\n\x0c"}
+
+
+\\ grey + thresholding
+'text': '        \n \n\nJust wanted to send yo & quick rieke to 
+say hi and\nlet You linow ve ‘re thinking of you right nw 
+2x4\nWee both verking frm hame and the kids’ school has\nclosed 
+so they Ye at hue to. Hs pretty packed lat\nwe re managng ne.\n
+\nPlease do lefus knw i€ you need us to gic up any of\nonc 
+Medication or need hele uth online grocery shaping,\n\ntap 
+td lave de hola tn anu wau we een.\n\x0c'}
+
+Please do let us knw i€ you need us + gic up any oe
+your med ication or need helo uth online grecery shopping,
+
+Reiaccmelis tesla ta and (320 lwo ran:
+
+
+'text': '   \n  \n\nmar Geaa\nNe at oe Tee Le rare\na ae ae 
+Eee oa ere\norn eaaee a ae Ser) Pere are een\ncatcerineay a 
+Cee oa eee ee\nase ata)\n\neae th aes a cere RD EA af eee\nvee 
+lar vab net ae, Re ae ON ae er an RT a ane eae\n\nPr ne no a a\n\n \n\x0c'}
+
+
+
+
+
+mar Geaa
+Ne at oe Tee Le rare
+a ae ae Eee oa ere
+orn eaaee a ae Ser) Pere are een
+catcerineay a Cee oa eee ee
+ase ata)
+
+eae th aes a cere RD EA af eee
+vee lar vab net ae, Re ae ON ae er an RT a ane eae
+
+Pr ne no a a
+
+
+{'text': 'frag I aed\n\n[Se ob Fame oo Sg Gs ne eee Oe ped een 
+ee\nora eee ee eed Le ee Cee ee) ae\nSolel epee eco oe ad come
+ eos en ORC aR Ket Rte one eae\n[eee a oe Maca to ae mn en ee oe
+  eee RT|\nSe a eed he ee ae\n\nLge get oa ene Ea ee oT he oe a
+  ]\nCa acoder ee en poe fel\nLhe oe Oo om a Oe Oe oe ed\nfaa 
+  Emel geal EO ge ee Role nme\na nel a oe ee aL Peg one ee eee 
+  og Oe\nSa a ean Oe td oO a ene ee\nfoe ay pega Rie ee ae a eae
+   Se pee ed\nLORS Ramee ba wart ees er node ee oe) pe ea\nCoP a Bs lo a eee ene banned Te)\n\naes amen en oe pO 2 i ee ed\nfoe icae gee ae ee aoe ee ee\n(lead Bde ee ee oo eT Tec ne ee cents Od ol eng A mld\nan Geom wclie coor teva ce, foam tag\nCag Pa ea Ye ee cee\nFoo and eens a acento ee Dp ned Be and eee\n\x0c'}
+PS D:\ML_Projects\mercari_test\ocr-test\ocr-test> python test1.py
+{'text': 'frag I aed\n\n[Se ob Fame oo Sg Gs ne eee Oe ped een ee\nora eee ee eed Le ee Cee ee) ae\nSolel epee eco oe ad come eos en ORC aR Ket Rte one eae\n[eee a oe Maca to ae mn en ee oe eee RT|\nSe a eed he ee ae\n\nLge get oa ene Ea ee oT he oe a]\nCa acoder ee en poe fel\nLhe oe Oo om a Oe Oe oe ed\nfaa Emel geal EO ge ee Role nme\na nel a oe ee aL Peg one ee eee og Oe\nSa a ean Oe td oO a ene ee\nfoe ay pega Rie ee ae a eae Se pee ed\nLORS Ramee ba wart ees er node ee oe) pe ea\nCoP a Bs lo a eee ene banned Te)\n\naes amen en oe pO 2 i ee ed\nfoe icae gee ae ee aoe ee ee\n(lead Bde ee ee oo eT Tec ne ee cents Od ol eng A mld\nan Geom wclie coor teva ce, foam tag\nCag Pa ea Ye ee cee\nFoo and eens a acento ee Dp ned Be and eee\n\x0c'}
+PS D:\ML_Projects\mercari_test\ocr-test\ocr-test> python test1.py
+{'text': 'Transport for Tomorrow\n\nOne thing is certain about
+ the public transport of the future: it\nmust be more efficient 
+ than it is today. The time is coming when it\nwill be quicker to fly across the Atlantic to New York than to travel\nfrom home to office. The two main problems are: what vehicle shall\nwe use and how can we plan our use of it?\n\nThere are already some modern vehicles which are not yet in\ncommon use, but which may become a usual means of transport in\nthe future. One of these is the small electric car: we go out into the\nstreet, find an empty car, get into it, drive to our destination, get\nout and leave the car for the next person who comes along. In fact,\nthere may be no need to drive these cars. With an automatic guid-\nance system for cars being developed, it will be possible for us to se-\nlect our destination just as today we select a telephone number, and\nour car will move automatically to the address we want.\n\nFor long journeys in private cars one can also use an automatic\nguidance system. Arriving at the motorway, a driver will select the\nlane! he wishes to use, switch over to automatic driving, and then\nrelax — dream, read the newspaper, have a meal, flirt with his pas-\nsenger — while the car does the work for him. Unbelievable? It is\nalready possible. Just as in many ships and aircraft today we are pi-\n\x0c'}
