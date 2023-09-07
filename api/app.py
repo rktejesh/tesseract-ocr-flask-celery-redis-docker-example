@@ -13,11 +13,11 @@ from worker import celery
 
 app = Flask(__name__)
 
-@celery.task(bind=True)
-def ocr_task(self, image_data):
-    img = Image.open(io.BytesIO(base64.b64decode(image_data)))
-    processed_img = pre_processing(img)
-    return pytesseract.image_to_string(processed_img)
+# @celery.task(bind=True)
+# def ocr_task(self, image_data):
+#     img = Image.open(io.BytesIO(base64.b64decode(image_data)))
+#     processed_img = pre_processing(img)
+#     return pytesseract.image_to_string(processed_img)
 
 @app.route('/image-sync', methods=['POST'])
 def image_sync():
@@ -30,14 +30,14 @@ def image_sync():
 @app.route('/image', methods=['POST'])
 def image():
     image_data = request.json['image_data']
-    task = ocr_task.apply_async([image_data])
+    # task = ocr_task.apply_async([image_data])
+    task = celery.send_task('tasks.ocr_task', args=[image_data], kwargs={})
     return jsonify({"task_id": task.id})
 
 @app.route('/image', methods=['GET'])
 def get_image():
     task_id = request.json['task_id']
-    task = ocr_task.AsyncResult(task_id)
-    print(task.state)
+    task = celery.AsyncResult(task_id)
     if task.state == 'PENDING':
         response = {
             'task_id': None,

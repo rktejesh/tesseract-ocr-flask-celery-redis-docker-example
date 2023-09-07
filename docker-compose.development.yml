@@ -3,15 +3,18 @@ services:
   web:
     build:
       context: ./api
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
      - "5001:5001"
+    environment:
+      FLASK_DEBUG: "on"
+      FLASK_APP: ./app.py
     depends_on:
       - redis
   app:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     links:
       - "web"
       - "worker"
@@ -24,7 +27,7 @@ services:
   worker:
     build:
       context: ./celery-queue
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     command: celery -A 'tasks' worker --loglevel=info
     environment:
       CELERY_BROKER_URL: redis://redis
@@ -35,7 +38,7 @@ services:
   monitor:
     build:
       context: ./celery-queue
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
      - "5555:5555"
     command:  celery -A 'tasks' flower --loglevel=info

@@ -225,9 +225,9 @@ def downscale_image(im, max_dim=2048):
     return scale, new_im
 
 
-def process_image(image):
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    orig_im = Image.fromarray(image)
+def process_image(path, out_path):
+
+    orig_im = Image.open(path)
     scale, im = downscale_image(orig_im)
 
     edges = cv2.Canny(np.asarray(im), 100, 200)
@@ -252,36 +252,30 @@ def process_image(image):
 
     contours = find_components(edges)
     if len(contours) == 0:
-        print('%s -> (no text!)')
+        print('%s -> (no text!)' % path)
         return
     crop = find_optimal_components_subset(contours, edges)
     crop = pad_crop(crop, contours, edges, border_contour)
 
     crop = [int(x / scale) for x in crop]  # upscale to the original image size.
-    text_im = orig_im.crop(crop)
-    text_im = cv2.cvtColor(np.array(text_im), cv2.COLOR_RGB2BGR)
-    return text_im
-
-def crop_morphology(image):
-    try:
-        return process_image(image)
-    except Exception as e:
-        print('%s %s' % (e))
+    # text_im = orig_im.crop(crop)
+    # text_im.save(out_path)
+    # print('%s -> %s' % (path, out_path))
+    return crop
 
 
+if __name__ == '__main__':
+    if len(sys.argv) == 2 and '*' in sys.argv[1]:
+        files = glob.glob(sys.argv[1])
+        random.shuffle(files)
+    else:
+        files = sys.argv[1:]
 
-# if __name__ == '__main__':
-#     if len(sys.argv) == 2 and '*' in sys.argv[1]:
-#         files = glob.glob(sys.argv[1])
-#         random.shuffle(files)
-#     else:
-#         files = sys.argv[1:]
-
-#     for path in files:
-#         out_path = path.replace('.jpg', '.crop.png')
-#         #out_path = path.replace('.png', '.crop.png')  # .png as input
-#         if os.path.exists(out_path): continue
-#         process_image(path, out_path)
-#         # try:
-#         # except Exception as e:
-#         #     print('%s %s' % (path, e))
+    for path in files:
+        out_path = path.replace('.jpg', '.crop.png')
+        #out_path = path.replace('.png', '.crop.png')  # .png as input
+        if os.path.exists(out_path): continue
+        process_image(path, out_path)
+        # try:
+        # except Exception as e:
+        #     print('%s %s' % (path, e))

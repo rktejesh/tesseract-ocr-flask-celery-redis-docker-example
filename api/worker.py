@@ -12,8 +12,8 @@ CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', 'redis://localho
 
 celery = Celery('tasks', broker=CELERY_BROKER_URL, backend=CELERY_RESULT_BACKEND)
 
-@celery.task(bind=True)
-def ocr_task(self, image_data):
-    img = Image.open(io.BytesIO(base64.b64decode(image_data)))
-    processed_img = pre_processing(img)
-    return pytesseract.image_to_string(processed_img)
+# @celery.task(bind=True)
+# def ocr_task(self, image_data):
+#     img = Image.open(io.BytesIO(base64.b64decode(image_data)))
+#     processed_img = pre_processing(img)
+#     return pytesseract.image_to_string(processed_img)

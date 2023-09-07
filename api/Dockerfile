@@ -28,5 +28,5 @@ EXPOSE 5001
 
 RUN pip3 install gunicorn
 
-# CMD ["gunicorn", "--bind", "0.0.0.0:5001", "--workers", "3", "app:app"]
-CMD ["bash", "run.sh"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5001", "--workers", "3", "app:app"]
+# CMD ["bash", "run.sh"]
