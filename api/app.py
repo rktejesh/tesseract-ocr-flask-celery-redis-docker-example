@@ -12,12 +12,8 @@ import redis
 from worker import celery
 
 app = Flask(__name__)
-
-# @celery.task(bind=True)
-# def ocr_task(self, image_data):
-#     img = Image.open(io.BytesIO(base64.b64decode(image_data)))
-#     processed_img = pre_processing(img)
-#     return pytesseract.image_to_string(processed_img)
+# r = redis.from_url('redis://redis:6379/0')
+r = redis.Redis(host='redis', port=6379, decode_responses=True)
 
 @app.route('/image-sync', methods=['POST'])
 def image_sync():
@@ -30,8 +26,9 @@ def image_sync():
 @app.route('/image', methods=['POST'])
 def image():
     image_data = request.json['image_data']
-    # task = ocr_task.apply_async([image_data])
+    name = request.json['name']
     task = celery.send_task('tasks.ocr_task', args=[image_data], kwargs={})
+    r.set(str(task.id), name)
     return jsonify({"task_id": task.id})
 
 @app.route('/image', methods=['GET'])
@@ -50,13 +47,14 @@ def get_image():
 
 @app.route('/get-tasks', methods=['GET'])
 def get_tasks():
-    r = redis.from_url('redis://redis:6379/0')
     keys = r.keys(pattern="celery-task-meta*")
     res = {}
-    res["keys"] = []
     for element in keys:
-        res["keys"].append(element.decode("utf-8").replace("celery-task-meta-", ""))
+        taskid = element.replace("celery-task-meta-", "")
+        name = r.get(str(taskid))
+        res[name] = str(taskid)
+
     return jsonify(res)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001)
+    app.run(host='0.0.0.0', debug=True, port=5001)

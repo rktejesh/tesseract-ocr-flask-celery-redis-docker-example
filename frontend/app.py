@@ -37,7 +37,7 @@ if uploaded_image is not None:
         if task_name:
             # Encode the uploaded image as base64
             image_data = base64.b64encode(uploaded_image.read()).decode("utf-8")
-            data = {"image_data": image_data}
+            data = {"image_data": image_data, "name": task_name}
             response = requests.post("http://web:5001/image", json=data)
             result = response.json()
 
@@ -53,7 +53,8 @@ st.header("Option 3: Image GET Request")
 if st.button("Click to fetch tasks"):
     response = requests.get("http://web:5001/get-tasks")
     result = response.json()
-    st.session_state.key_ids = result["keys"]
+    st.session_state.result = result
+    st.session_state.key_ids = list(result.keys())
 
 if 'key_ids' in st.session_state:
     # Create a selectbox and populate it with the fetched data
@@ -63,7 +64,7 @@ if 'key_ids' in st.session_state:
     st.write(f"Selected option: {selected_task}")
     if selected_task:
         if st.button("Get OCR Text"):
-            task_id = selected_task
+            task_id = st.session_state.result[selected_task]
             data = {"task_id": task_id}
             response = requests.get("http://web:5001/image", json=data)
             result = response.json()

@@ -8,7 +8,7 @@ with open('sample3.png', 'rb') as f:
     image_encoded = base64.b64encode(f.read()).decode('utf-8')
 
 # Post to the /image endpoint to start the task
-response = requests.post('http://127.0.0.1:5000/image', json={'image_data': image_encoded})
+response = requests.post('http://localhost:5001/image', json={'image_data': image_encoded, 'name': 'hello'})
 data = response.json()
 print(data)  # Should display the task ID
 

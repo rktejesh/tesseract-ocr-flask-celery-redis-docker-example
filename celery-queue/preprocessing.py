@@ -1,6 +1,7 @@
 import cv2 
 import numpy as np
 from deskew import deskew
+from crop_morphology import crop_morphology
 
 # get np_array image
 def np_array_image(image):
@@ -26,9 +27,9 @@ def remove_noise(image):
  
 #thresholding
 def thresholding(image):
-    # return cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+    return cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
     # return cv2.adaptiveThreshold(cv2.GaussianBlur(image, (5, 5), 0), 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 31, 2)
-    return cv2.adaptiveThreshold(cv2.bilateralFilter(image, 9, 75, 75), 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 31, 2)
+    # return cv2.adaptiveThreshold(cv2.bilateralFilter(image, 9, 75, 75), 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 31, 2)
     # return cv2.adaptiveThreshold(cv2.medianBlur(image, 3), 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 31, 2)
 
 #dilation
@@ -61,33 +62,16 @@ def canny(image):
 
 #pre-process the image
 def pre_processing(image):
-    image = normalize(image)
-    image = deskew(image)
-    image = scale_image(image)
-    image = remove_noise(image)
-    image = get_grayscale(image)
-    image = thresholding(image)
-    image = np_array_image(image)
-    # image = erode(image)
-    # image = dilate(image)
-    image = opening(image)
-
-    # norm_img = normalize(image)
-    # deskew_img = deskew(norm_img)
-    # scale_img = scale_image(deskew_img)
-    # denoised_img = remove_noise(scale_img)
-    # erode_img = erode(denoised_img)
-    # grey = get_grayscale(erode_img)
+    cv2image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+    norm_img = normalize(cv2image)
+    deskew_img = deskew(norm_img)
+    scale_img = scale_image(deskew_img)
+    denoised_img = remove_noise(scale_img)
+    grey = get_grayscale(denoised_img)
+    crop_img = crop_morphology(grey)
     # threshold = thresholding(grey)
-
-    # np_image = np_array_image(scale_img)
+    # np_image = np_array_image(threshold)
+    # erode_img = erode(np_image)
+    # dilate_img = dilate(erode_img)
     # cany = canny(threshold)
-    # print(type(norm_img))
-    return image
-
-if __name__=="__main__":
-    image = cv2.imread("sample3.png")
-    # Display the image
-    # cv2.imshow("Image", image)
-    image = pre_processing(image)
-    cv2.imwrite("temp1.jpg", image)
+    return crop_img

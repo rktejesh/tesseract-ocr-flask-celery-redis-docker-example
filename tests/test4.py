@@ -2,6 +2,6 @@
 
 import requests
 
-response = requests.get('http://127.0.0.1:5000/get-tasks')
+response = requests.get('http://localhost:5001/get-tasks')
 data = response.json()
 print(data)

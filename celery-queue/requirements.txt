@@ -1,7 +1,7 @@
 Pillow
 Flask
 celery
-opencv-python
+opencv-python-headless
 numpy
 redis
 pytesseract

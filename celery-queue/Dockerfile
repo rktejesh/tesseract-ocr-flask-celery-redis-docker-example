@@ -1,14 +1,13 @@
-FROM ubuntu:20.04
+FROM python:3.9-slim-bookworm
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
-    tesseract-ocr-eng \
-    python3 \
-    python3-pip \
-    libtesseract-dev \
-    zlib1g-dev \
-    libgl1-mesa-glx
+    tesseract-ocr \
+    # libtesseract-dev \
+    # zlib1g-dev \
+    # libgl1-mesa-glx \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV CELERY_BROKER_URL redis://redis:6379/0
 ENV CELERY_RESULT_BACKEND redis://redis:6379/0
